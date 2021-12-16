@@ -4,6 +4,8 @@ const username = "ayetone"
 const repoList = document.querySelector(".repo-list")
 const reposClass = document.querySelector(".repos")
 const repoData = document.querySelector(".repo-data")
+const backToGallery = document.querySelector(".view-repos")
+const filterInput = document.querySelector(".filter-repos")
 
 const profileInfo = async function () {
     const response = await fetch(`https://api.github.com/users/${username}`)
@@ -40,6 +42,7 @@ const repos = async function () {
 }
 
 const displayRepos = function (repos) {
+    filterInput.classList.remove("hide")
     for (const repo of repos) {
         const repoItem = document.createElement("li")
         repoItem.classList.add("repo")
@@ -53,7 +56,6 @@ repoList.addEventListener("click", function (e) {
         const repoName = e.target.innerText
         repoInformation(repoName)
     }
-    
 })
 
 const repoInformation = async function (repoName) {
@@ -75,6 +77,7 @@ const displayRepoInfo = function (repoInfo, languages) {
     repoData.innerHTML = ""
     repoData.classList.remove("hide")
     reposClass.classList.add("hide")
+    BackToGallery.classList.remove("hide")
     const div = document.createElement("div")
     div.innerHTML = `
         <h3>Name: ${repoInfo.name}</h3>
@@ -84,3 +87,24 @@ const displayRepoInfo = function (repoInfo, languages) {
         <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a> `
     repoData.append(div)
 }
+
+backToGallery.addEventListener("click", function (){
+    repoData.classList.add("hide")
+    reposClass.classList.remove("hide")
+    returntoGallery.classList.add("hide")
+})
+
+filterInput.addEventListener("input", function (e){
+    const searchText = e.target.value
+    //console.log(searchText)
+    const repos = document.querySelectorAll(".repo")
+    const searchTextCase = searchText.toLowerCase()
+    for (const repo of repos) {
+        const reposTextCase = repo.innerText.toLowerCase()
+        if (reposTextCase.includes(searchTextCase)) {
+            repo.classList.remove("hide")
+        } else {
+            repo.classList.add("hide")
+        }
+    }
+})
