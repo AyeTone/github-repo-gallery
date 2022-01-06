@@ -77,7 +77,7 @@ const displayRepoInfo = function (repoInfo, languages) {
     repoData.innerHTML = ""
     repoData.classList.remove("hide")
     reposClass.classList.add("hide")
-    BackToGallery.classList.remove("hide")
+    backToGallery.classList.remove("hide")
     const div = document.createElement("div")
     div.innerHTML = `
         <h3>Name: ${repoInfo.name}</h3>
@@ -88,7 +88,7 @@ const displayRepoInfo = function (repoInfo, languages) {
     repoData.append(div)
 }
 
-backToGallery.addEventListener("click", function (){
+backToGallery.addEventListener("click", function () {
     repoData.classList.add("hide")
     reposClass.classList.remove("hide")
     returntoGallery.classList.add("hide")
